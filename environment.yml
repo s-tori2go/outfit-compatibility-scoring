@@ -1,0 +1,25 @@
+name: base
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - conda==24.11.3
+  - setuptools
+  - pip
+  - wheel
+  - conda-content-trust
+  - conda-libmamba-solver
+  - menuinst
+  - python.app
+  - anaconda-anon-usage
+  - notebook
+  - jupyter
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - nltk
+  - transformers
+  - torchvision
+  - kagglehub
+  - numpy
+prefix: outfit-style
