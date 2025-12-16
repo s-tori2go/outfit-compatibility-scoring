@@ -62,6 +62,12 @@ Follow the instructions for [OutfitTransformer](https://github.com/bigohofone/ou
 git clone https://github.com/s-tori2go/iterative-outfit-completion.git
 ```
 
+Then, in `outfit-transformer/src/demo`:
+
+1. Replace `2_build_index.py` and `vectorstore.py`
+2. Add `4_run_approach_comparison.py` and `score_candidates_batch.py`
+3. If needed, add `5_visualize_items_on_canvas.py` and `5_visualize_on_person.py` (for visualization)
+
 ---
 
 ## Results (Summary)
