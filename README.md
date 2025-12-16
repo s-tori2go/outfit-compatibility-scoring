@@ -1,89 +1,120 @@
-# Personalized Outfit Evaluation with AI
-_Advancing Fashion Styling with AI: Embedding-Aware Personal Style Modeling with Contextual Understanding_
+# Iterative Outfit Completion (COS)
 
-## Overview
+**What Happens When AI Tries Again?**  
+*Moving Beyond Traditional Retrieval with Iterative Large-Scale CIR for Complete Outfit Suggestion*
 
-Welcome to the repository for my master's thesis on personalized fashion outfit evaluation using artificial intelligence! This project combines state-of-the-art deep learning models with user-centric design to assess and recommend outfits based on individual preferences and contextual cues.
+This repository contains the **code implementation** accompanying the Master’s thesis:
 
-## Project Structure
+> **Iterative, Compatibility-Guided Outfit Completion for Fashion Recommendation**  
+> MSc in Engineering – Software Engineering for Intelligent Systems  
+> University of Applied Sciences Vorarlberg  
+> Author: Viktoriia Simakova
 
-```
-.
-├── data/
-│   └── [...]
-├── models/
-│   └── [...]
-├── src/
-│   └── [...]
-├── environment.yml
-├── README.md
-└── ...
-```
+The project introduces a **human-inspired, iterative outfit refinement pipeline** that goes beyond single-step Complementary Item Retrieval (CIR) by repeatedly scoring, repairing and completing outfits until global coherence is achieved.
 
-- **data/**: Contains all datasets, including images, metadata and extracted embeddings.
-- **models/**: Stores loaded models and checkpoints for reproducibility and further experiments.
-- **src/**: Core source code for data preparation, feature extraction, processing, scoring and visualization.
+---
+
+## Core Idea
+
+Traditional fashion recommenders retrieve **one item once**. Humans don't style like that.
+
+This project reframes outfit generation as a **structured decision-making problem**:
+
+1. Start with a partial or flawed outfit
+2. Score global compatibility
+3. Identify the weakest element
+4. Replace, add, or remove items
+5. Re-evaluate and repeat
+
+The process continues until the outfit is **complete, balanced, and coherent**.
+
+---
 
 ## Key Features
 
-- **Multi-Modal Embedding Extraction**: Uses FashionCLIP to encode images and metadata into a shared vector space.
-- **Personalized Style Anchors**: Learns user-specific "liked" and "disliked" style representations for tailored scoring.
-- **Context-Aware Scoring**: Supports optional context prompts to adapt recommendations.
-- **Interactive Visualization**: Provides 2D and 3D visualizations of the embedding space to explore style clusters and model behavior.
-- **Baseline & Advanced Models**: Includes both a supervised ResNet50 baseline and a multi-modal, anchor-based scoring model.
-- **Reproducible Environment**: All experiments run in a Conda environment, ensuring consistent results across systems.
+- Iterative outfit refinement (add / remove / swap)
+- Compatibility-guided decision loop
+- FAISS-based large-scale retrieval
+- Category-aware candidate filtering
+- 8-Point Rule of Fashion constraint
+- Batch compatibility scoring for efficiency
+- Deterministic & reproducible experiments
+- Quantitative + qualitative evaluation
 
-## Getting Started
+---
 
-### 1. Clone the Repository
+## Models & Technologies
+
+- **Backbone**: OutfitTransformer (set-wise transformer)
+- **Embeddings**: FashionCLIP
+- **Scoring**: Compatibility Prediction (CP)
+- **Retrieval**: Complementary Item Retrieval (CIR)
+- **Search**: FAISS
+- **Dataset**: Polyvore (non-disjoint split)
+
+---
+
+## Installation
+
+Follow the instructions for [OutfitTransformer](https://github.com/bigohofone/outfit-transformer). Then:
 
 ```bash
-git clone https://github.com/s-tori2go/outfit-compatibility-scoring.git
-cd outfit-compatibility-scoring
+git clone https://github.com/s-tori2go/iterative-outfit-completion.git
 ```
 
-### 2. Set Up the Environment
+---
 
-- Make sure you have [Conda](https://docs.conda.io/) installed.
-- Create and activate the environment:
+## Results (Summary)
 
-```bash
-conda env create -f environment.yml
-conda activate outfit-style
+| Method | Mean Compatibility | Std Dev |
+|------|-------------------|--------|
+| Single-step CIR | 0.861 | 0.281 |
+| Iterative COS | **0.992** | **0.066** |
+
+- 86.2% of outfits improved
+- Strong variance reduction
+- Preferred by humans in 75% of cases
+
+---
+
+## Limitations
+
+- Relies on Polyvore-era fashion data
+- No explicit diversity regularization
+- Metadata noise can cause category duplication
+
+These are addressed in **Future Work**.
+
+---
+
+## Future Work
+
+- Diversity-aware penalties
+- User preference & context conditioning
+- Modern outfit datasets
+- Integration with VTON for full-outfit rendering
+- Reinforcement learning for global optimization
+
+---
+
+## Citation
+
+```bibtex
+@mastersthesis{simakova2025iterative,
+  title={What Happens When AI Tries Again? Iterative Large-Scale CIR for Complete Outfit Suggestion},
+  author={Simakova, Viktoriia},
+  year={2025},
+  school={University of Applied Sciences Vorarlberg}
+}
 ```
 
-- All dependencies (PyTorch, FashionCLIP, OpenCV, etc.) are specified in `environment.yml`.
+---
 
-### 3. Project Workflow
+## License
 
-1. **Data Preparation**
-   - Place raw images and metadata in `data/`.
-   - Use scripts in `src/1a_2_data_preparation_module/` to crop, segment, and embed images and text.
+MIT License
 
-2. **Model Training & Evaluation**
-   - Train baseline and personalized models using scripts in `src/3_4_scoring_module/`.
-   - Evaluate and visualize results with provided notebooks and scripts.
+---
 
-3. **Scoring New Outfits**
-   - Use the scoring pipeline to rate new outfits based on your personalized style anchors and (optionally) context.
+If you use or extend this work, please cite the thesis ✨
 
-## Results & Insights
-
-- Achieves ~75% accuracy on unseen outfit data, reflecting the subjective nature of style.
-- Visualizations reveal partial clustering of "good" and "bad" outfits, with clear separation of personalized anchors.
-- Both baseline and advanced models are included for benchmarking and comparison.
-
-## Why This Matters
-
-This project lays the groundwork for AI-powered, user-centric fashion assistants. These are tools that not only recognize general style but also adapt to what _you_ like, in any context. The modular pipeline and transparent code make it easy to extend, retrain, or adapt for new users and datasets.
-
-## Acknowledgements
-
-- Developed as part of the Master’s thesis at University of Applied Sciences Vorarlberg.
-- Special thanks to Dr. techn. Sebastian Hegenbart for supervision.
-
-## Keywords
-
-_Fashion AI, Deep Learning, Personalization, Outfit Compatibility, Multi-Modal Embeddings, FashionCLIP, Computer Vision, Context-Aware Scoring_
-
-For any questions or contributions, feel free to open an issue or contact the author!
